@@ -1,0 +1,22 @@
+.page__content {
+  display: grid;
+  grid-template-columns: minmax(20px, 1fr) 880px minmax(20px, 1fr);
+}
+
+@media screen and (max-width: 1279px) {
+  .page__content {
+    grid-template-columns: 200px 1fr 200px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .page__content {
+    grid-template-columns: 100px 1fr 100px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page__content {
+    grid-template-columns: 19px 1fr 19px;
+  }
+}
