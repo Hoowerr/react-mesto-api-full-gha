@@ -14,7 +14,7 @@ module.exports.login = (req, res, next) => {
         NODE_ENV === 'production' ? SECRET_KEY : 'secret-key',
         { expiresIn: '7d' },
       );
-      res.cookie('jwt', token, {
+      res.cookie('token', token, {
         httpOnly: true,
         maxAge: 3600000 * 24 * 7,
         sameSite: true,
