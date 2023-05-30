@@ -14,7 +14,7 @@ const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://hoower.nomoredomains.monster'],
+  origin: ['http://localhost:3000', 'http://hoower.nomoredomains.monster', 'http://158.160.3.169:3000'],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
