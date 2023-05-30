@@ -49,8 +49,8 @@ class Auth {
 }
 
 const auth = new Auth({
-  // baseUrl: "https://api.hoower.nomoredomains.rocks",
-  baseUrl: "http://localhost:3001",
+  baseUrl: "https://api.hoower.nomoredomains.rocks",
+  // baseUrl: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

@@ -92,8 +92,8 @@ class Api {
 }
 
 const api = new Api({
-  // baseUrl: "https://hoower.nomoredomains.rocks",
-  baseUrl: "http://localhost:3001",
+  baseUrl: "https://api.hoower.nomoredomains.rocks",
+  // baseUrl: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
