@@ -17,8 +17,10 @@ module.exports.login = (req, res, next) => {
       res.cookie('token', token, {
         httpOnly: true,
         maxAge: 3600000 * 24 * 7,
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'Lax',
-        secure: process.env.NODE_ENV === 'production',
+        // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'Lax',
+        // secure: process.env.NODE_ENV === 'production',
+        sameSite: 'none',
+        secure: true,
       });
       res.send({ token });
     })
