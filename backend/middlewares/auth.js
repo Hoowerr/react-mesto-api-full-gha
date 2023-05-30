@@ -1,9 +1,8 @@
-const jsonWebToken = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauthorizedError');
 
 module.exports = (req, res, next) => {
-  const token = req.cookies.jwt;
-  console.log(token);
+  const { token } = req.cookies;
   if (!token) {
     next(new UnauthorizedError('Login required'));
     return;
@@ -11,7 +10,7 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jsonWebToken.verify(token, process.env.NODE_ENV === 'production' ? process.env.SECRET_KEY : 'secret-key');
+    payload = jwt.verify(token, process.env.NODE_ENV === 'production' ? process.env.SECRET_KEY : 'secret-key');
   } catch (err) {
     next(new UnauthorizedError('Login required'));
     return;
