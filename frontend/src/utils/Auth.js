@@ -11,41 +11,46 @@ class Auth {
     return res.json();
   }
 
-  register(newUserData) {
+  register(email, password) {
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
-      headers: this._headers,
-      body: JSON.stringify({
-        email: newUserData.email,
-        password: newUserData.password,
-      }),
-    }).then(this._getResponseData);
+      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    }).then((res) => this._getResponseData(res));
   }
 
-  login(userData) {
+  login(email, password) {
     return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
-      headers: this._headers,
-      body: JSON.stringify({
-        email: userData.email,
-        password: userData.password,
-      }),
-    }).then(this._getResponseData);
+      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    }).then(this._getResponseData)
   }
 
   checkToken(token) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
+      credentials: "include",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     }).then(this._getResponseData);
   }
 }
 
 const auth = new Auth({
-  baseUrl: "https://api.hoower.nomoredomains.rocks",
+  // baseUrl: "https://api.hoower.nomoredomains.rocks",
+  baseUrl: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

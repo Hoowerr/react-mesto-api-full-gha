@@ -40,8 +40,8 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            navigate("/react-mesto-auth", { replace: true });
-            setEmail(res.data.email);
+            navigate("/", { replace: true });
+            setEmail(res.email);
           }
         })
         .catch((err) => console.log(err));
@@ -62,7 +62,7 @@ function App() {
 
   function handleLogin(userData) {
     auth
-      .login(userData)
+      .login(userData.email, userData.password)
       .then((res) => {
         if (res.token) {
           localStorage.setItem("token", res.token);
@@ -80,7 +80,7 @@ function App() {
 
   function handleRegister(regUserData) {
     auth
-      .register(regUserData)
+      .register(regUserData.email, regUserData.password)
       .then(() => {
         navigate("/sign-in", { replace: true });
         setIsRegistrationSuccess(true);
@@ -105,7 +105,8 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    // console.log(card.likes)
+    const isLiked = card.likes.some((id) => id === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
@@ -182,16 +183,6 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <Routes>
             <Route
-              path="/"
-              element={
-                loggedIn ? (
-                  <Navigate to="/react-mesto-auth" replace />
-                ) : (
-                  <Navigate to="/sign-up" replace />
-                )
-              }
-            />
-            <Route
               path="/sign-in"
               element={
                 <Login onLogin={handleLogin} title="Вход" buttonText="Войти" />
@@ -208,7 +199,7 @@ function App() {
               }
             />
             <Route
-              path="/react-mesto-auth"
+              path="/"
               element={
                 <ProtectedRoute
                   element={Main}
@@ -226,6 +217,7 @@ function App() {
                 />
               }
             />
+           <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <Footer />
 

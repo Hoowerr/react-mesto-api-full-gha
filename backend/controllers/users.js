@@ -18,7 +18,7 @@ module.exports.login = (req, res, next) => {
         httpOnly: true,
         maxAge: 3600000 * 24 * 7,
       });
-      res.send({ message: 'You have successfully logged in!' });
+      res.status(200).json({ token });
     })
     .catch(next);
 };
@@ -32,7 +32,7 @@ module.exports.getAllUsers = (req, res, next) => {
 const getUserById = (req, res, id, next) => {
   User.findById(id)
     .orFail()
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
@@ -54,7 +54,7 @@ const updateInfo = (req, res, dataToUpdate, next) => {
     { new: true, runValidators: true },
   )
     .orFail()
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
@@ -74,7 +74,7 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => {
       const userData = user.toObject();
       delete userData.password;
-      res.status(CREATED_CODE).send({ data: userData });
+      res.status(CREATED_CODE).send(userData);
     })
     .catch(next);
 };

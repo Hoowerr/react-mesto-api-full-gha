@@ -4,8 +4,8 @@ const AccessDeniedError = require('../errors/accessDeniedError');
 
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})
-    .populate(['owner', 'likes'])
-    .then((cards) => res.send({ data: cards }))
+    // .populate(['owner', 'likes'])
+    .then((cards) => res.send(cards.reverse()))
     .catch(next);
 };
 
@@ -13,13 +13,14 @@ module.exports.createCard = (req, res, next) => {
   const id = req.user._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner: id })
-    .then((card) => res.status(CREATED_CODE).send({ data: card }))
+    .then((card) => res.status(CREATED_CODE).send(card))
     .catch(next);
 };
 
 module.exports.deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
     .orFail()
+    // .populate(['owner', 'likes'])
     .then((card) => {
       const owner = card.owner.toString();
       if (req.user._id === owner) {
@@ -40,8 +41,8 @@ module.exports.likeCard = (req, res, next) => {
     { new: true },
   )
     .orFail()
-    .populate(['owner', 'likes'])
-    .then((card) => res.send({ data: card }))
+    // .populate(['owner', 'likes'])
+    .then((card) => res.send(card))
     .catch(next);
 };
 
@@ -52,7 +53,7 @@ module.exports.dislikeCard = (req, res, next) => {
     { new: true },
   )
     .orFail()
-    .populate(['owner', 'likes'])
-    .then((card) => res.send({ data: card }))
+    // .populate(['owner', 'likes'])
+    .then((card) => res.send(card))
     .catch(next);
 };
