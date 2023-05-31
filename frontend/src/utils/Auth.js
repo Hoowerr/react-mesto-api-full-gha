@@ -14,7 +14,6 @@ class Auth {
   register(email, password) {
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
-      credentials: "include",
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -26,7 +25,6 @@ class Auth {
   login(email, password) {
     return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
-      credentials: "include",
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -35,12 +33,11 @@ class Auth {
     }).then(this._getResponseData)
   }
 
-  checkToken() {
+  checkToken(token) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      credentials: "include",
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -52,7 +49,8 @@ const auth = new Auth({
   baseUrl: "https://api.hoower.nomoredomains.rocks",
   // baseUrl: "http://localhost:3001",
   headers: {
-    "Content-Type": "application/json",
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   },
 });
 

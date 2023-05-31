@@ -13,17 +13,25 @@ class Api {
   }
 
   getInitialCards() {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
     }).then(this._checkResponse);
   }
 
   addNewCard({ name, link }) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/cards/`, {
       method: "POST",
-      headers: this._headers,
-      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: name,
         link: link,
@@ -32,34 +40,50 @@ class Api {
   }
 
   removeCard(id) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
-      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
     }).then(this._checkResponse);
   }
 
   addLike(id) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
-      headers: this._headers,
-      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
     }).then(this._checkResponse);
   }
 
   removeLike(id) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
-      headers: this._headers,
-      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
     }).then(this._checkResponse);
   }
 
   setAvatar(data) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
-      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -67,21 +91,26 @@ class Api {
   }
 
   getUserInfo() {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/users/me`, {
-      credentials: "include",
       headers: {
-        'Content-Type': 'application/json'
-    }
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+        
+      },
     }).then(this._checkResponse);
   }
 
   editUserInfo(data) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      credentials: "include",
       headers: {
-        'Content-Type': 'application/json'
-    },
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify(data),
     }).then(this._checkResponse);
   }
@@ -95,6 +124,7 @@ const api = new Api({
   baseUrl: "https://api.hoower.nomoredomains.rocks",
   // baseUrl: "http://localhost:3001",
   headers: {
+    Accept: 'application/json',
     "Content-Type": "application/json",
   },
 });
